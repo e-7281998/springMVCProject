@@ -34,6 +34,7 @@
 	<!-- DispatcherServlet : FrontController이다. -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
+		<!-- 클래스 위치는 Maven Dependencies에 찾아보면 있음 -->
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
@@ -44,7 +45,8 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+	<!-- 모든 client 요청을 DispatcherServlet이 처리하도록 요청 -->
+	<!-- '/' 이하의 경로. 즉, 모든 경로는 appServlet에서 지정해놓은 param-value에 있는 파일들을 다 지나가게 됨.   -->
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
