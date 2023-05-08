@@ -44,6 +44,11 @@
 				/WEB-INF/spring/appServlet/dbConfiguration.xml
 			</param-value>
 		</init-param>
+		<!-- 오류페이지 등록하기... 페이지 존재하지 않을 때 -->
+		<init-param>
+			<param-name>throwExceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<!-- 모든 client 요청을 DispatcherServlet이 처리하도록 요청 -->
