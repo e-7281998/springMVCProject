@@ -20,13 +20,11 @@ public class EmpService {
 	}
 
 	public List<EmpVO> selectAll() {
-		//
-		return empDao.selectAll();
+ 		return empDao.selectAll();
 	}
 
 	public EmpVO selectById(int empid) {
-		//
-		return empDao.selectById(empid);
+ 		return empDao.selectById(empid);
 	}
 
 	public List<EmpVO> selectByDept(int deptid) {
