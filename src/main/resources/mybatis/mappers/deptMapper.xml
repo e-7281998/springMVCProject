@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- xml instance다. 나는 xml을 따른다 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shinhan.dept">
+
+	<!-- 1. mapping할 이름이 다를 경우 -->
+	<resultMap type="deptvo" id="deptMap1">
+		<result property="department_id" column="department_id"/>
+		<result property="department_name" column="department_name"/>
+		<result property="manager_id" column="manager_id"/>
+		<result property="location_id" column="manager_id"/>
+	</resultMap>
+	
+		
+	<!-- 2. mapping할 이름이 같을 경우 -->
+	<!-- 이 함수 부를 때 com.shinhan.dept.selectAll로 (위의 mapper: + 아래의 id) 호출할 거임 -->
+	<!-- 결과를 con.shinhan.vo.DeptVO 에 넣음  -->
+	<select id="selectAll" resultType="com.shinhan.vo.DeptVO">
+	<!-- sql session으로 sql을 실행하는 것임 -->
+	  select * from departments
+	</select>
+	
+	<!-- resultType에는 sqlMapConfig에서 설정한 별명(alias)을 줘도 됨 -->
+	<select id="selectById" parameterType="int" resultType="deptvo">
+	<!-- 파라메터가 하나만 있으면 다음과 같이 이름 #{aa} 아무거나 줘도 됨 -->
+	  select * from departments where department_id = #{aa}
+	</select>
+	
+	<!-- #{department_id}와 같은 값들은 getter로 얻어서 넣어주는 것임 -->
+	<insert id="insert" parameterType="deptvo">
+		insert into departments(department_id, department_name, manager_id, location_id)
+		values(#{department_id}, #{department_name}, #{manager_id}, #{location_id}) 
+	</insert>
+	
+	<update id="update" parameterType="com.shinhan.vo.DeptVO">
+		update departments
+		set department_name = #{department_name},
+			manager_id = #{manager_id},
+ 		    location_id = #{location_id}
+		where department_id = #{department_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from departments where department_id = #{department_id}
+	</delete>
+	
+</mapper>

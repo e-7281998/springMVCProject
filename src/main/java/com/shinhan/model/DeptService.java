@@ -11,7 +11,8 @@ import com.shinhan.vo.DeptVO;
 public class DeptService {
 	
 	@Autowired
-	DeptDAO dao;
+	DeptDAOMybatis dao;	//mybatis 이용하기
+	//DeptDAO dao;
 	
 	public List<DeptVO> deptSelectAll() {
 		return dao.deptSelectAll();

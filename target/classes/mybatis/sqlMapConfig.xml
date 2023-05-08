@@ -1,0 +1,17 @@
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 로그 남김 -->
+		<setting name="logImpl" value="LOG4J"/>
+		<!-- 값이 null이 왔을 때 어찌할건지 -->
+		 <setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+		<!-- deptvo로 부르기로 함. 별명 설정 -->
+		<typeAlias type="com.shinhan.vo.DeptVO" alias="deptvo"/>
+		<!-- empvo로 부르기로 함. 별명 설정 --> 
+		<typeAlias type="com.shinhan.vo.EmpVO" alias="empvo"/>
+	</typeAliases>
+</configuration>

@@ -19,7 +19,28 @@
 			지역 저장소에 저장되어있음, 라이브러리 우측에 적혀있는 경로가 지역저장소 경로임
 			지역 저장소는 windows > Preperences 에서 maven 검색 > user Settings에서 경로를 지정할 수 있음 > 
 			 -->
+			
+		<!-- DBCP 이용 -->	
+		 <dependency>
+		   <groupId>org.apache.commons</groupId>
+		   <artifactId>commons-dbcp2</artifactId>
+		   <version>2.7.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.6</version>
+		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
+		
 		<dependency>
 		    <groupId>com.oracle.database.jdbc</groupId>
 		    <artifactId>ojdbc8</artifactId>

@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="dataSource"
+	<!-- 방법3 : Connection Pooling 이용하기 (JNDI)-->
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/myoracle"  resource-ref="true" />
+	
+	<!-- sql session (공장) 만들기.. sql 만들 준비 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 방법3의 id가 다음의 ref에 들어감 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 다음의 경로에 sql 설정파일이 있음을 알려줘야함 -->
+		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
+		<!-- 다음의 경로에 mapper가 있음을 알려줘야함 -->
+		<property name="mapperLocations" value="classpath:mybatis/mappers/*.xml" />
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		 <constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+
+	<!-- 방법2 : Connection Pooling 이용하기: 미리 연결해놓는것 -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
+		<property name="username" value="hr" />
+		<property name="password" value="hr" />
+	</bean> -->
+	
+	<!-- 방법1 -->
+	<!-- <bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
 		<property name="username" value="hr" />
 		<property name="password" value="hr" />
-	</bean>
+	</bean> -->
 </beans>
