@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@Controller	//DispatcherServlet -> 요청을 받아서 Controller를 찾는다.
 @RequestMapping("/first")	//calss-level1 아래 메서드 level 요청들의 공통사항을 작성한다.
 public class SampleController {
 	

@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/shinhan/model/CompanyDAO.java=UTF-8
+encoding//src/main/java/com/shinhan/model/CompanyService.java=UTF-8
+encoding//src/main/java/com/shinhan/model/EmpDAO.java=UTF-8
+encoding//src/main/java/com/shinhan/model/EmpService.java=UTF-8
+encoding//src/main/java/com/shinhan/util/DateUtil.java=UTF-8
+encoding//src/main/java/com/shinhan/util/OracleUtil.java=UTF-8

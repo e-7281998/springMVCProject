@@ -20,8 +20,11 @@
 	<mvc:resources mapping="/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- Resolves에서 접두사, 접미사를 추가해줌 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 접두사  -->
 		<property name="prefix" value="/WEB-INF/views/" />
+		<!-- 접미사 -->
 		<property name="suffix" value=".jsp" />
 	</bean>
 	

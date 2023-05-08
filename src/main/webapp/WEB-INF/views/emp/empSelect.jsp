@@ -12,18 +12,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<%@include file="../common/commonFiles.jsp"%> 
  <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/common.css" type="text/css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/select.css" type="text/css">
+ 
+ <script>
+	$(() => {
+		$(".btnDel").on("click", function(){
+			var empid = $(this).attr("data-del");
+			location.href="${path}/emp/empDelete.do?empid="+empid;
+		})
+	});
+</script>
+ 
  
 </head>
 <body>
 	<div class="container mt-3">
 		<h1>직원목록</h1> 
 		<div id="empbtn">
-			<button onclick="location.href='emp_insert.html'" type="button"
+			<button onclick="location.href='empinsert.do'" type="button"
 				class="btn btn-success">직원등록</button>
 			<a type="button" class="btn btn-success" href="empinsert.do">직원등록</a>
 		</div>
@@ -47,6 +57,7 @@
 					data-bs-target="#exampleModal" data-bs-whatever="@mdo">
 					모달 이용한 직원등록
 			</button>
+			<%@ include file="empInsertModal.jsp" %>
  		</div>
 		<select>
 			<option>AD_PRES</option>
@@ -61,8 +72,8 @@
 			<option>SH_CLERK</option>
 			<option>AD_ASST</option>
 			<option>MK_MAN</option>
-		</select> <select id="jobs">
-		</select>
+		</select> 
+		 
 		<table class="table table-hover">
 			<thead>
 				<tr>
