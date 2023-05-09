@@ -1,5 +1,6 @@
 package com.shinhan.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class EmpService {
 		return empDao.selectByDept(deptid);
 	}
 
-	public List<EmpVO> selectByCondition(int deptid, String jobid, double salary) {
-		return empDao.selectByCondition(deptid, jobid, salary);
+	public List<EmpVO> selectByCondition(Integer[] deptid, String jobid, Double salary, Date hiredate) {
+		return empDao.selectByCondition(deptid, jobid, salary, hiredate);
 	}
 
 	// 자신의 속한 부서의 평균 급여보다 더 적은 급여를 받는 직원들을 조회하시오

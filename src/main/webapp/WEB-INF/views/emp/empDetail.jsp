@@ -53,17 +53,19 @@
 				<tr>
 					<td>부서</td>
 					<td><select name="department_id">
+							<option value="0">부서 없음</option>
 							<c:forEach items="${deptList}" var="dept">
 								<option
 									${emp.department_id == dept.department_id ? 'selected':''}
 									value="${dept.department_id}">${dept.department_name}</option>
 							</c:forEach>
-					</select> <input type="number" name="department_id" value="60"></td>
+ 					</select> <input type="number" name="department_id" value="60"></td>
 				</tr>
 				 
 				<tr>
 					<td>메니져</td>
 					<td><select name="manager_id">
+							<option value="0">매니저 없음</option> 
 							<c:forEach items="${managerList}" var="manager">
 								<option ${emp.manager_id == manager.employee_id ? 'selected':''} value="${manager.employee_id}">${manager.first_name}-${manager.last_name}</option>
 							</c:forEach>

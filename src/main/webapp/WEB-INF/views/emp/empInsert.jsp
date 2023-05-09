@@ -64,6 +64,7 @@ String subject = "js 코드";
 				<td>부서</td>
 				<td>
 					<select name="department_id">
+						<option value="0">부서없음</option>
 						<c:forEach items="${deptList}" var="dept" varStatus="status">
 							<option value="${dept.department_id}">${status.count} : ${dept.department_name}</option>
 						</c:forEach>
@@ -71,9 +72,10 @@ String subject = "js 코드";
 				</td>
 			</tr>
 			<tr>
-				<td>메니져</td>
+				<td>메니저</td>
 				<td>
 					<select name="manager_id">
+						<option value="0">매니저 없음</option>
 						<c:forEach items="${managerList}" var="manager">
 							<option value="${manager.employee_id}">${manager.first_name}-${manager.last_name}</option>
 						</c:forEach>

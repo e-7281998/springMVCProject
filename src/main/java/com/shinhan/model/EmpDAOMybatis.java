@@ -1,8 +1,8 @@
 package com.shinhan.model;
 
-import java.util.HashMap;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -44,17 +44,39 @@ public class EmpDAOMybatis {
 		return emplist;
 	} 
 	
-	//조건조회, 특정부서의 
-	public List<EmpVO> selectByCondition(int deptid, String jobid, double salary) {
+	//조건조회: 특정부서, jobid, salary 이상 직원 조회
+	//VO class이용
+	public List<EmpVO> selectByCondition(Integer[] deptid, String jobid, Double salary, Date hiredate) {
+		List<EmpVO> empResult = new ArrayList<>();
+		List<EmpVO> emplist = null;
+		
+		for(Integer dept : deptid) {
+			EmpVO emp = new EmpVO();
+			emp.setDepartment_id(dept);
+			emp.setJob_id(jobid);
+			emp.setSalary(salary);
+			emp.setHire_date(hiredate);
+	 		emplist = sqlSession.selectList(NAMESPACE+"selectByCondition2", emp);
+	 		emplist.forEach(aa -> empResult.add(aa));
+	 		 
+			LOG.info(emplist.toString());
+		}
+		return empResult;
+	} 
+	
+	//Map 이용
+	/*
+	public List<EmpVO> selectByCondition(Integer deptid, String jobid, Double salary) {
 		Map<String, Object> mapData = new HashMap<>();
 		mapData.put("deptid", deptid);
 		mapData.put("jobid", jobid);
 		mapData.put("salary", salary);
 		List<EmpVO> emplist = 
-				sqlSession.selectList(NAMESPACE+"selectByCondition", mapData);
+				sqlSession.selectList(NAMESPACE+"selectByCondition2", mapData);
 		LOG.info(emplist.toString());
 		return emplist;
 	} 
+	*/
 
 	//신규직원 등록
 	public int empInsert(EmpVO emp) {

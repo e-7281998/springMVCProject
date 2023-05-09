@@ -61,6 +61,7 @@
 							<tr>
 								<td>메니져</td>
 								<td><select name="manager_id">
+										<option value="0">매니저 없음</option>
 										<c:forEach items="${managerList}" var="manager">
 											<option value="${manager.employee_id}">${manager.first_name}-${manager.last_name}</option>
 										</c:forEach>

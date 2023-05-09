@@ -24,6 +24,26 @@
 			var empid = $(this).attr("data-del");
 			location.href="${path}/emp/empDelete.do?empid="+empid;
 		})
+		 
+		//조건조회 추가
+		$("#btnCondition").on("click", function(e){
+			e.preventDefault();
+			$.ajax({
+				url:"empCondition.do",
+				data:{
+					deptid:$("#deptSelect").val(),
+					jobid:$("#jobSelect").val(),
+					salary:$("#salSelect").val(),
+					hiredate:$("#dateSelect").val() || undefined
+				},
+				success:(responseTable)=>{
+					$("#here").html(responseTable);
+				},
+				error:(error)=>{
+					$("#here").html(error);
+				}
+			})
+		})
 	});
 </script>
  
@@ -59,22 +79,42 @@
 			</button>
 			<%@ include file="empInsertModal.jsp" %>
  		</div>
-		<select>
-			<option>AD_PRES</option>
-			<option>AD_VP</option>
-			<option>IT_PROG</option>
-			<option>FI_MGR</option>
-			<option>FI_ACCOUNT</option>
-			<option>PU_MAN</option>
-			<option>ST_MAN</option>
-			<option>ST_CLERK</option>
-			<option>SA_REP</option>
-			<option>SH_CLERK</option>
-			<option>AD_ASST</option>
-			<option>MK_MAN</option>
-		</select> 
-		 
-		<table class="table table-hover">
+ 		
+ 		<div id="selectCondition">
+ 			<p>조건으로 직원 조회</p>
+ 			<form>
+ 				<label>
+ 					<span>직책</span>
+ 					<select id="jobSelect">
+ 					<option name="jobid" value="" >전체</option>
+ 					<c:forEach items="${jobList}" var="job">
+ 						<option name="jobid" value="${job.job_id}" >${job.job_id}</option>
+ 					</c:forEach>
+					</select> 	
+ 				</label>
+ 				<label>
+ 					<span>부서</span>
+					<select id="deptSelect"  multiple="multiple">
+					<option name="deptid" value="" >전체</option>
+ 					<c:forEach items="${deptList}" var="dept">
+ 						<option name="deptid" value="${dept.department_id}" >${dept.department_name}</option>
+ 					</c:forEach>
+					</select> 	
+  				</label>
+ 				<label>
+ 					<span>급여</span>
+ 					<input id="salSelect" name="salary"  type="number" value="1000">
+ 				</label>
+ 				<label>
+ 					<input id="dateSelect" type="date" name="hire_date" >
+ 					<span>이전 입사자</span>
+ 				</label> 
+  				<button id="btnCondition" >조회하기</button>
+<!--   				<input type="button" id="btnCondition" value="조회하기"> -->
+ 			</form>
+ 		</div>
+ 		 		 
+		<table class="table table-hover" id="here">
 			<thead>
 				<tr>
 					<th>순서</th>
@@ -124,6 +164,7 @@
 			</tbody>
 
 		</table>
-	</div>
+		
+ 	</div>
 </body>
 </html>

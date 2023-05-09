@@ -1,5 +1,7 @@
 package com.shinhan.controller;
 
+import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -37,6 +41,7 @@ public class EmpController {
 	@RequestMapping("/emplist.do")
 	public String empList(Model model , HttpServletRequest request) {
 		
+		
 		Map<String, ?> flashMap =
 		        RequestContextUtils.getInputFlashMap(request);
 		if(flashMap !=null ) {
@@ -44,7 +49,9 @@ public class EmpController {
 			logger.info("(입력/삭제/수정에 대한 결과)message =>" + message);
 		}
 		
-		List<EmpVO> emplist = eService.selectAll();
+		List<EmpVO> emplist = eService.selectByCondition(new Integer[]{0}, "", 0.0, null);
+//		List<EmpVO> emplist = eService.selectAll();
+		//List<EmpVO> emplist = eService.selectByCondition(0, "", 0.0, null);		
 		logger.info(emplist.size()+"건");
 		model.addAttribute("empAll", emplist);
 		
@@ -95,6 +102,16 @@ public class EmpController {
 		String result = eService.empDelete(empid);
 		attr.addFlashAttribute("resultMessage", result);
 		return "redirect:/emp/emplist.do";
+	}
+	
+	//조건 조회
+	//@RequestMapping(value = "/empCondition.do", method = RequestMethod.GET)
+	@GetMapping("/empCondition.do")	//@GetMapping은 위와 같음. 더 간단하게 사용한 것.
+	public String selectByCondition(@RequestParam("deptid[]") Integer[] deptid, 
+									String jobid, Double salary, Date hiredate, Model model) {
+  		List<EmpVO> emplist =  eService.selectByCondition(deptid, jobid, salary, hiredate);
+		model.addAttribute("empAll", emplist);
+ 		return "emp/empRetrieve";
 	}
 	
 	//========================================================
