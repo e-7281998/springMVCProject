@@ -11,6 +11,7 @@
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!-- ContextLoaderListener가 로드할때 항상 감시함 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- xml instance다. 나는 xml을 따른다 -->
+<!-- 다음 문장을 통해 mapper를 만드는 과정임을 알 수 있다. -->
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shinhan.dept">
+<!-- <mapper namespace="com.shinhan.dept"> -->
+<mapper namespace="co.kr.firstzone.dept">
 
 	<!-- 1. mapping할 이름이 다를 경우 -->
 	<!-- <resultMap type="com.shinhan.vo.DeptVO" id="deptMap1"> 로 사용 가능 -->
 	<!-- type="deptvo"는 sqlMapConfig.xml에서 alias로 지정한 이름으로도 사용 가능 -->
 	<resultMap type="deptvo" id="deptMap1">
+		<!-- property우리의 변수, column DB의 칼럼명 -->
 		<result property="department_id" column="department_id"/>
 		<result property="department_name" column="department_name"/>
 		<result property="manager_id" column="manager_id"/>
@@ -18,7 +21,7 @@
 		
 	<!-- 2. mapping할 이름이 같을 경우 -->
 	<!-- 이 함수 부를 때 com.shinhan.dept.selectAll로 (위의 mapper: + 아래의 id) 호출할 거임 -->
-	<!-- 결과를 con.shinhan.vo.DeptVO 에 넣음  -->
+	<!-- 결과를 resultType인 com.shinhan.vo.DeptVO 에 넣음  -->
 	<select id="selectAll" resultType="com.shinhan.vo.DeptVO">
 	<!-- sql session으로 sql을 실행하는 것임 -->
 	  select * from departments

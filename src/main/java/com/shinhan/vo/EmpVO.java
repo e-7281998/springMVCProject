@@ -13,15 +13,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter @Setter @ToString
 public class EmpVO {
-	 private int employee_id;
+	 private Integer employee_id;
 	 private String first_name;
 	 private String last_name;
 	 private String email;
 	 private String phone_number;
 	 private Date hire_date;
 	 private String job_id;
-	 private double salary;
-	 private double commission_pct;
-	 private int manager_id;
-	 private int department_id;
+	 private Double salary;	
+	 //Wrapper class로 변경한 이유 : jsp 페이지에서 값 입력안함 null => 기본형넣으면 오류
+ 	 private Double commission_pct;
+	 private Integer manager_id;
+	 private Integer department_id;
 }

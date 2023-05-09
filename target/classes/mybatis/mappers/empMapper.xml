@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace = 회사 url뒤집고 + 업무이름 -->
+<mapper namespace="co.kr.firstzone.emp">
+
+	<!-- 직원 전체 조회 -->
+	<select id="selectAll" resultType="com.shinhan.vo.EmpVO">
+		select * from employees order by 1 desc
+	</select>
+	
+	<!-- id로 직원 조회 -->
+	<!-- resultType은 위에처럼 직원 전체 조회처럼 경로를 줘도 되고,
+		sqlMapConfig.xml에서 설정한 empvo(별칭)으로 줘도 됨 -->
+	<select id="selectById" parameterType="int" resultType="empvo">
+		select * from employees where employee_id = #{id}
+	</select>
+	
+	<select id="selectByDept" parameterType="int" resultType="empvo">
+		select * from employees where department_id = #{id}
+	</select>
+	
+	<select id="selectByCondition" parameterType="map" resultType="empvo">
+		select * from employees where department_id = #{deptid} 
+		and job_id  =#{jobid} and salary >= #{salary}
+	</select>
+	
+	<select id="insert" parameterType="empvo">
+		insert into employees(employee_id, first_name, last_name,
+		 					job_id, manager_id, department_id,
+		 					hire_date, phone_number, salary,
+		 					email, commission_pct)
+		values(seq_employee.nextval,#{first_name},#{last_name},
+							#{job_id}, #{manager_id},#{department_id},
+							#{hire_date}, #{phone_number},#{salary},
+							#{email},#{commission_pct}) 
+	</select>
+	
+	<select id="update" parameterType="empvo">
+		 update employees
+		 set employee_id = #{employee_id},
+		 	first_name = #{first_name},
+		 	last_name = #{last_name},
+		 	job_id = #{job_id},
+		 	manager_id = #{manager_id},
+		 	department_id = #{department_id},
+		 	hire_date = #{hire_date},
+		 	phone_number = #{phone_number},
+		 	salary = #{salary},
+		 	email = #{email},
+		 	commission_pct = #{commission_pct}
+		 where employee_id = #{employee_id}
+	</select>
+	
+	<select id="delete" parameterType="int">
+		  delete from employees where employee_id = #{employee_id}
+	</select>
+	
+</mapper>

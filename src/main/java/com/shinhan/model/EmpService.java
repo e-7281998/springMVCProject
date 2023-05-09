@@ -12,12 +12,12 @@ import com.shinhan.vo.EmpVO;
 public class EmpService {
 	
 	@Autowired	//Spring이 EmpDAO 타입이 같으면 Bean을 생성하여 자동주입
-	EmpDAO empDao;
-
+	EmpDAOMybatis empDao;
+	
 	// SP 호출
-	public EmpVO getSalary(int empid) {
-		return empDao.getSalary(empid);
-	}
+	/*
+	 * public EmpVO getSalary(int empid) { return empDao.getSalary(empid); }
+	 */
 
 	public List<EmpVO> selectAll() {
  		return empDao.selectAll();
@@ -36,11 +36,10 @@ public class EmpService {
 	}
 
 	// 자신의 속한 부서의 평균 급여보다 더 적은 급여를 받는 직원들을 조회하시오
-	public List<EmpVO> selectLAB() {
-		List<EmpVO> emplist = empDao.selectLAB();
-		System.out.println("[EempService] 실행건수:" + emplist.size());
-		return emplist;
-	}
+	/*
+	 * public List<EmpVO> selectLAB() { List<EmpVO> emplist = empDao.selectLAB();
+	 * System.out.println("[EempService] 실행건수:" + emplist.size()); return emplist; }
+	 */
 
 	// 신규직원등록 (insert)
 	public String empInsert(EmpVO emp) {
