@@ -84,23 +84,23 @@
  			<p>조건으로 직원 조회</p>
  			<form>
  				<label>
- 					<span>직책</span>
- 					<select id="jobSelect">
- 					<option name="jobid" value="" >전체</option>
- 					<c:forEach items="${jobList}" var="job">
- 						<option name="jobid" value="${job.job_id}" >${job.job_id}</option>
- 					</c:forEach>
-					</select> 	
- 				</label>
- 				<label>
  					<span>부서</span>
 					<select id="deptSelect"  multiple="multiple">
-					<option name="deptid" value="0" >전체</option>
+					<option name="deptid" value="0" selected="selected">전체</option>
  					<c:forEach items="${deptList}" var="dept">
  						<option name="deptid" value="${dept.department_id}" >${dept.department_name}</option>
  					</c:forEach>
 					</select> 	
   				</label>
+  				<label>
+ 					<span>직책</span>
+ 					<select id="jobSelect">
+ 					<option name="jobid" value="" selected="selected">전체</option>
+ 					<c:forEach items="${jobList}" var="job">
+ 						<option name="jobid" value="${job.job_id}" >${job.job_id}</option>
+ 					</c:forEach>
+					</select> 	
+ 				</label>
  				<label>
  					<span>급여</span>
  					<input id="salSelect" name="salary"  type="number" value="1000">

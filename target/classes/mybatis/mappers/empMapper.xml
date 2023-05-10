@@ -22,12 +22,12 @@
 		select * from employees where department_id = #{id}
 	</select>
 	
-	<select id="selectByCondition" parameterType="map" resultType="map">
+	<select id="selectByCondition" parameterType="map" resultType="empvo">
 		select * from employees where department_id = #{deptid} 
 		and job_id  =#{jobid} and salary >= #{salary}
 	</select>
 	
-	<select id="selectByCondition2" parameterType="map" resultType="empvo">
+	<select id="selectByCondition2" parameterType="empvo" resultType="empvo">
 		select * from employees
 		<!-- where 1=1을 하는 이유는? 조건문장에서 무조건 and로 시작하기 위해서.. 무조건 true인 조건을 주면 됨 -->
 		where 1=1 	
@@ -50,6 +50,59 @@
 		</if>
 		 
 		 order by first_name
+	</select>
+	
+	<!-- deptid가 배열로 들어왔을 때 Map으로 처리하기 1 -->
+	<select id="selectByCondition3" parameterType="map" resultType="empvo">
+		select * from employees
+		where 1=1
+		<if test="deptid != null">
+			<!-- 배열로 들어오므로 in 사용 -->
+			and department_id in 
+			<!-- 다음 문장으로 (1,2,3)과 같은 문장으로 만들어줌  -->
+			<foreach collection="deptid" item="dd" open="(" close=")" separator=",">
+				#{dd} 		
+			</foreach>
+		</if>
+		<!-- test에는 map에서 읽어야하는 값이 들어감. 즉, map의 key값이 들어감 -->
+		<if test="jobid != null and jobid != ''">
+			and job_id  = #{jobid}
+		</if>
+		<if test="salary != null and salary != 0">
+			and salary  >= #{salary}
+		</if> 
+		<if test="hiredate != null">
+ 			and hire_date &lt;= #{hiredate}
+		</if>
+		order by first_name
+	</select>
+	
+	<!-- deptid가 배열로 들어왔을 때 Map으로 처리하기 2 - 서브쿼리 사용 -->
+	<select id="selectByCondition4" parameterType="map" resultType="empvo">
+		select * from employees
+		where 1=1
+		<if test="deptid != null"> 
+			and department_id in 
+ 			<foreach collection="deptid" item="dd" open="(" close=")" separator=",">
+				<if test="dd==0">
+					select department_id from departments
+				</if>
+				<if test="dd!=0">
+					#{dd}
+				</if>	
+			</foreach>
+		</if>
+		<!-- test에는 map에서 읽어야하는 값이 들어감. 즉, map의 key값이 들어감 -->
+		<if test="jobid != null and jobid != ''">
+			and job_id  = #{jobid}
+		</if>
+		<if test="salary != null and salary != 0">
+			and salary  >= #{salary}
+		</if> 
+		<if test="hiredate != null">
+ 			and hire_date &lt;= #{hiredate}
+		</if>
+		order by first_name
 	</select>
 	
 	<select id="insert" parameterType="empvo">

@@ -3,7 +3,9 @@ package com.shinhan.model;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -47,11 +49,12 @@ public class EmpDAOMybatis {
 	
 	//조건조회: 특정부서, jobid, salary 이상 직원 조회
 	//VO class이용
-	public List<EmpVO> selectByCondition(Integer[] deptid, String jobid, Double salary, Date hiredate) {
+	/*public List<EmpVO> selectByCondition(Integer[] deptid, String jobid, Double salary, Date hiredate) {
 		LOG.info(Arrays.toString(deptid));
 		List<EmpVO> empResult = new ArrayList<>();
 		List<EmpVO> emplist = null;
 		
+		//전체인 경우 deptid = {0}
 		for(Integer dept : deptid) {
 			EmpVO emp = new EmpVO();
 			emp.setDepartment_id(dept);
@@ -64,21 +67,29 @@ public class EmpDAOMybatis {
 			LOG.info(emplist.toString());
 		}
 		return empResult;
-	} 
+	} */
 	
 	//Map 이용
-	/*
-	public List<EmpVO> selectByCondition(Integer deptid, String jobid, Double salary) {
+	public List<EmpVO> selectByCondition(Integer[] deptid, String jobid, Double salary, Date hiredate) {
+		
 		Map<String, Object> mapData = new HashMap<>();
+		
+		//부서가 선택되지 않거나 전체인경우 처리
+		//selectByCondition3 실행시 주석 해제, selectByCondition4 실행시 주석처리
+		if(deptid.length == 0 || deptid[0]==0)
+			deptid=null;
+		
 		mapData.put("deptid", deptid);
 		mapData.put("jobid", jobid);
 		mapData.put("salary", salary);
+		mapData.put("hiredate", hiredate);
 		List<EmpVO> emplist = 
-				sqlSession.selectList(NAMESPACE+"selectByCondition2", mapData);
+				sqlSession.selectList(NAMESPACE+"selectByCondition3", mapData);
+		/*List<EmpVO> emplist = 
+				sqlSession.selectList(NAMESPACE+"selectByCondition4", mapData);*/
 		LOG.info(emplist.toString());
 		return emplist;
-	} 
-	*/
+	}
 
 	//신규직원 등록
 	public int empInsert(EmpVO emp) {

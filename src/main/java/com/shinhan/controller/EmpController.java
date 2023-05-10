@@ -106,9 +106,12 @@ public class EmpController {
 	
 	//조건 조회
 	//@RequestMapping(value = "/empCondition.do", method = RequestMethod.GET)
+	//Ajax요청시 배열이 오면 @RequestParam("deptid[]")와 같이 사용
+	//일반 요청이면 @RequestParam("deptid") Integer[] deptid 즉, Integer[] deptid만 사용하면 됨
 	@GetMapping("/empCondition.do")	//@GetMapping은 위와 같음. 더 간단하게 사용한 것.
 	public String selectByCondition(@RequestParam("deptid[]") Integer[] deptid, 
 									String jobid, Double salary, Date hiredate, Model model) {
+		logger.info(Arrays.toString(deptid) + " <<<<<< deptid");
   		List<EmpVO> emplist =  eService.selectByCondition(deptid, jobid, salary, hiredate);
 		model.addAttribute("empAll", emplist);
  		return "emp/empRetrieve";
