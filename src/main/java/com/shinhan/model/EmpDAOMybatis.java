@@ -2,6 +2,7 @@ package com.shinhan.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -47,6 +48,7 @@ public class EmpDAOMybatis {
 	//조건조회: 특정부서, jobid, salary 이상 직원 조회
 	//VO class이용
 	public List<EmpVO> selectByCondition(Integer[] deptid, String jobid, Double salary, Date hiredate) {
+		LOG.info(Arrays.toString(deptid));
 		List<EmpVO> empResult = new ArrayList<>();
 		List<EmpVO> emplist = null;
 		

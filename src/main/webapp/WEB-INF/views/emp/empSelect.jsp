@@ -95,7 +95,7 @@
  				<label>
  					<span>부서</span>
 					<select id="deptSelect"  multiple="multiple">
-					<option name="deptid" value="" >전체</option>
+					<option name="deptid" value="0" >전체</option>
  					<c:forEach items="${deptList}" var="dept">
  						<option name="deptid" value="${dept.department_id}" >${dept.department_name}</option>
  					</c:forEach>

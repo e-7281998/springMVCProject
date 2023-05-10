@@ -11,6 +11,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.shinhan.util.OracleUtil;
@@ -21,7 +22,8 @@ import com.shinhan.vo.JobVO;
 @Repository
 public class CompanyDAO {
 	
-	@Autowired
+	@Autowired //타입이 같으면 자동으로 주입한다.
+	@Qualifier("dataSourceOriginal") //타입이 같은 bean이 여러개면 이름으로 찾아서 주입한다.
 	DataSource ds;
 	
 	Connection conn;

@@ -6,13 +6,26 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- 방법3 : Connection Pooling 이용하기 (JNDI)-->
-	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/myoracle"  resource-ref="true" />
+	<jee:jndi-lookup id="dataSourceOriginal" jndi-name="jdbc/myoracle"  resource-ref="true" />
+
+	<!-- 방법3을 다음에 넣고, 다음을  sqlSessionFactory에 넣는다.-->
+ 	<bean id="dataSource2"
+		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceOriginal" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE"></property>
+				<property name="sqlPrefix" value="[ SQL문장 ] "></property>
+			</bean>
+		</property>
+	</bean>
+	
 	
 	<!-- 내가) sql session (공장) 만들기.. sql 만들 준비 -->
 	<!-- 쌤) sqlSessionFactory : 설정에의해 sqlSession을 생성한다.-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 방법3의 id가 다음의 ref에 들어감 -->
-		<property name="dataSource" ref="dataSource"></property>
+		<property name="dataSource" ref="dataSource2"></property>
 		<!-- 다음의 경로에 sql 설정파일이 있음을 알려줘야함 -->
 		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
 		<!-- 다음의 경로에 mapper가 있음을 알려줘야함 -->

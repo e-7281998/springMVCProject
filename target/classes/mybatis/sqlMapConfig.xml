@@ -5,6 +5,7 @@
 	<settings>
 		<!-- 로그 남김
 			sql이 어떻게 실행되는지 보기 위해..(?), #{}에 어떤 값들이 들어갔는지 확인하고 싶을때.. -->
+		<!-- value="LOG4J"는 파일의 이름임. => log4j.xml을 가르킴 -->
 		<setting name="logImpl" value="LOG4J"/>
 		<!-- 값이 null이 왔을 때 어찌할건지...
 			만약 int타입이면 알아서 parseInt를 해줌. 만약 null값이 온다면?
