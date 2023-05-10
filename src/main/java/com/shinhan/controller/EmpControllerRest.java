@@ -43,6 +43,7 @@ public class EmpControllerRest {
 	
 	//직원 조회
 	//produces="application/json" >> json타입으로 보내겠다. charset=utf-8: 한글 깨지지 말고
+	// application/json > 응답할 값(Map)을 json으로 보내겠다.
 	@RequestMapping(value = "/emplist.do", 
 					produces="application/json;charset=utf-8")
 	public Map<String, Object> empList(Model model , HttpServletRequest request) { 
@@ -66,7 +67,6 @@ public class EmpControllerRest {
 			method = RequestMethod.POST)
 	public String registerPost(@RequestBody EmpVO emp) {
 		String result = eService.empInsert(emp);
-		logger.info("여기옴~~~");
 		return result;
 	} 
 	
@@ -95,6 +95,7 @@ public class EmpControllerRest {
 	//직원 수정
 	//PUT : 수정 , POST : 입력
 	//@RequestBody : 요청 문서의 body에 데이터가 들어온다.
+	//produces = "text/plain;charset=utf-8" >> text/plain : 문자열 타입으로 응답하겠다. 한글 깨뜨리지 말고
 	@RequestMapping(value = "/empDetail.do",
 			consumes = "application/json",
 			method = RequestMethod.PUT,
@@ -111,7 +112,6 @@ public class EmpControllerRest {
 	//직원 삭제
 	@DeleteMapping(value = "/empDelete.do/{empid}", produces = "text/plain;charset=utf-8")
 	public String empDelete(@PathVariable int empid) {
-		logger.info("empid ==> " + empid);
 		String result = eService.empDelete(empid);
  		return "결과는"+result;
 	}
