@@ -1,5 +1,4 @@
 eclipse.preferences.version=1
-encoding//src/main/java/com/shinhan/education/LogAdvice.java=UTF-8
 encoding//src/main/java/com/shinhan/model/CompanyDAO.java=UTF-8
 encoding//src/main/java/com/shinhan/model/CompanyService.java=UTF-8
 encoding//src/main/java/com/shinhan/model/EmpDAO.java=UTF-8
@@ -9,4 +8,5 @@ encoding//src/main/java/com/shinhan/util/DateUtil.java=UTF-8
 encoding//src/main/java/com/shinhan/util/OracleUtil.java=UTF-8
 encoding//src/main/java/com/shinhan/vo=UTF-8
 encoding//src/main/java/com/shinhan/vo/EmpVO.java=UTF-8
+encoding//src/main/java/net/shinhan/advice/LogAdvice.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/dept/deptupdate.jsp=UTF-8

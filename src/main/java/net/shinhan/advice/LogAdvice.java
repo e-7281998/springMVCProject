@@ -1,4 +1,4 @@
-package com.shinhan.education;
+package net.shinhan.advice;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
