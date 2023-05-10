@@ -42,6 +42,9 @@
 	<logger name="jdbc.resultsettable">
 		<level value="off"></level>
 	</logger> 
+	<logger name="jdbc.audit">
+		<level value="off"></level>
+	</logger>
 	
 	<!-- Application Loggers -->
 	<logger name="com.shinhan.education">

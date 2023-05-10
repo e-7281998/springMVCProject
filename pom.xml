@@ -19,6 +19,14 @@
 			지역 저장소에 저장되어있음, 라이브러리 우측에 적혀있는 경로가 지역저장소 경로임
 			지역 저장소는 windows > Preperences 에서 maven 검색 > user Settings에서 경로를 지정할 수 있음 > 
 			 -->
+		<!-- RestAPI 사용시 JSON으로 만들어 값을 넘겨주는 라이브러리 -->
+		<!-- JSON 기능 이용하기  -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.2</version>
+		</dependency>
+			 
 		<!-- transactioin 처리 -->
 		<dependency>
 			<groupId>org.springframework</groupId>

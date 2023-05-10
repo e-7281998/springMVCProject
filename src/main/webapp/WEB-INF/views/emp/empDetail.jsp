@@ -16,7 +16,7 @@
 	<div id="container">
 		<h1>직원 상세보기</h1>
 		<%@ include file="../common/Header.jsp"%>
-		<form method="post"
+		<form method="post" id="myfrm"
 			action="<%=request.getContextPath()%>/emp/empDetail.do" class="mb-3">
 			<table>
 				<tr class="form-floating">
@@ -95,8 +95,42 @@
 				<tr style="text-align: center;">
 					<td colspan="2"><input type="submit" value="직원수정"></td>
 				</tr>
+				<tr style="text-align: center;">
+					<td colspan="2"><input id="btnRestUpdate" type="button" value="직원수정(Rest)"></td>
+				</tr>
+				
 			</table>
 	</div>
+	<script>
+		//RestAPI로 직원 수정하기
+		//contentType : 보내는 데이터 형식이 json이다. 
+		$(()=>{
+			$("#btnRestUpdate").on("click", ()=>{
+				//var aa = myfrm.serlialize();
+				var arr = $("#myfrm").serializeArray();
+				var obj = {};
+				 console.log(arr);
+				 
+				$.each(arr, (index, item)=>{
+					obj[item.name] = item.value;
+				}) 
+				
+				console.log(obj);
+				$.ajax({
+					url: "${path}/restemp/empDetail.do",
+					method : "put",
+					data: JSON.stringify(obj),
+					contentType: "application/json",
+					success: (responseData)=>{
+ 						location.href="emplist.do";
+					},
+					error: ()=>{
+						
+					}
+				});
+			})
+		})
+	</script>
 
 	<script>
 		function call() {

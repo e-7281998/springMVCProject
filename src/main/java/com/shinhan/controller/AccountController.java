@@ -15,11 +15,12 @@ public class AccountController {
 	@Autowired
 	AccountService service;
 	
-	@GetMapping("/transfer.do")
+	//produces = "text/html;charset=UTF-8" 을 통해 응답문서에 한글깨지지 않도록
+	@GetMapping(value = "/transfer.do", produces = "text/html;charset=UTF-8")
 	@ResponseBody	//응답문서의 바디로 가고 싶을경우
-	//응답문서 받을 때 ... responst.getWriter().append().와  같음
+	//응답문서 받을 때 ... response.getWriter().append("aaa").와  같음 => aaa를 만들어서 응답문서에 넣어라
 	public String transactionTet() {
 		service.transfer();
-		return "transfer transactionTest";
+		return "<h1>transfer transactionTest 입니당</h1>";
 	}
 }

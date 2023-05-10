@@ -24,6 +24,8 @@
 			var empid = $(this).attr("data-del");
 			location.href="${path}/emp/empDelete.do?empid="+empid;
 		})
+		
+		
 		 
 		//조건조회 추가
 		$("#btnCondition").on("click", function(e){
@@ -46,11 +48,27 @@
 		})
 	});
 </script>
+
  
  
 </head>
 <body>
 	<div class="container mt-3">
+		<!-- RestFul방식 연습  -->
+		<div>
+			<p>RestFul방식 연습</p>
+			<div>
+				<input type="number" id="empid" value="100">
+				<div>
+					<button id="empRetrive">1건의 직원 조회 </button>
+					<button id="empAll">모든 직원 조회 </button>
+				</div>
+				<div id="resultMessage"></div>
+			</div> 
+		</div>
+		
+		<hr>
+		
 		<h1>직원목록</h1> 
 		<div id="empbtn">
 			<button onclick="location.href='empinsert.do'" type="button"
@@ -158,7 +176,10 @@
 						<td><fmt:formatNumber value="${emp.commission_pct}"
 								type="percent" /></td>
 						<td>${emp.department_id}</td>
-						<td><button class="btnDel" data-del="${emp.employee_id}">삭제</button></td>
+						<td>
+							<button class="btnDel" data-del="${emp.employee_id}">삭제</button>
+							<button class="btnDelRest" data-del="${emp.employee_id}">삭제(Rest)</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -166,5 +187,61 @@
 		</table>
 		
  	</div>
+ 	
+ 	<script>
+	/* Restful 실습 */
+	$(() => {
+		
+		//직원 삭제하기
+		$(".btnDelRest").on("click", function(){
+			var empid = $(this).attr("data-del");
+			console.log("empid > " + empid);
+			$.ajax({
+				url:"${path}/restemp/empDelete.do/"+empid,
+				method:"delete",
+				success:(responseData)=>{
+ 					location.href="${path}/emp/emplist.do";
+				},
+				error:()=>{
+					
+				}
+ 			})
+		})
+		
+		//모든 직원 조회
+		$("#empAll").on("click", () => {
+			$.ajax({
+				url: "${path}/restemp/emplist.do",
+				success: (responseData)=> {
+					//응답된 데이터(responseData)는 배열임. 왜 ? 모든 직원 조회했으므로
+					var output = "<ul>";
+					//empAll은 Map의 key값임
+					$.each(responseData.empAll, (index, item)=>{
+						output += "<li>"+item.first_name+"</li>";
+					});
+  					$("#resultMessage").html(output+"</ul>");
+ 				},
+				error: () => {
+					
+				}
+ 			})
+		})
+		
+		//직원 한명 조회
+		$("#empRetrive").on("click", () => {
+			var empid = $("#empid").val();
+			$.ajax({
+				url: "${path}/restemp/empDetail.do/"+empid,
+				success: (responseData)=> {
+ 					$("#resultMessage").html(responseData.first_name);
+ 				},
+				error: () => {
+					
+				}
+ 			})
+		})
+		
+	})
+</script>
 </body>
 </html>

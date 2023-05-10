@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" errorPage="errorPage.jsp"%>
 
 <%
+
 //자바 코드 작성 ...service의 코드에 삽입된다.
 String subject = "js 코드";
 //파라미터로 안들어오면 에러남. null을 Integer로 바꿀 수 없으므로
@@ -13,6 +14,9 @@ String subject = "js 코드";
 	public int add(int a, int b) {
 		return a + b;
 	}%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 
 <!DOCTYPE html>
 <html>
@@ -29,7 +33,7 @@ String subject = "js 코드";
 	<h1>직원정보 입력</h1>
   
 	<!-- http://localhost:9999/ -->
-	<form method="post"
+	<form method="post" id="myfrm"
 		action="<%=request.getContextPath()%>/emp/empinsert.do" class="mb-3">
 		<table>
 			<tr class="form-floating">
@@ -103,12 +107,39 @@ String subject = "js 코드";
 			</tr>
 			<tr style="text-align: center;">
 				<td colspan="2"><input type="submit" value="직원등록"></td>
+				<td colspan="2"><input id="btnRestInsert" type="submit" value="직원등록(Rest)"></td>
 			</tr>
 		</table>
 	</form>
 	<div id="here">여기</div>
 	<button id="btn1" onClick="call()">버튼</button>
-
+<script>
+	$(()=>{
+		
+		$("#btnRestInsert").on("click", (e)=>{
+ 			var arr = $("#myfrm").serializeArray();
+			var obj = {};
+ 			 
+			$.each(arr, (index, item)=>{
+				obj[item.name] = item.value;
+			}) 
+  			//contentType : 보내는 데이터 형식
+			$.ajax({
+				url: "${path}/restemp/empinsert.do",
+				method : "post",
+				data: JSON.stringify(obj),
+				contentType: "application/json",
+				success: (responseData)=>{
+					alert(responseData);
+					location.href="emplist.do";
+  				},
+				error: ()=>{
+					
+				}
+			});
+		})
+	})
+</script>
 	<script>
 		function call() {
 			//DOM(Document Object Model)
